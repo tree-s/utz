@@ -58,4 +58,4 @@ extern const uzone_packed_t zone_defns[46];
 #define NUM_ZONE_NAMES 46
 #define MAX_ZONE_NAME_LEN 10
 
-extern const unsigned char zone_names[506];
+extern const unsigned char zone_names[368];
