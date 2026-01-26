@@ -242,8 +242,17 @@ void unpack_zone(const uzone_packed_t* zone_in, const char* name, uzone_t* zone_
   zone_out->src = zone_in;
   zone_out->name = name;
 
-  zone_out->offset.minutes = (zone_in->offset_inc_minutes % (60 / OFFSET_INCREMENT)) * OFFSET_INCREMENT;
-  zone_out->offset.hours = zone_in->offset_inc_minutes / (60 / OFFSET_INCREMENT);
+  int16_t total_minutes = zone_in->offset_inc_minutes * OFFSET_INCREMENT;
+
+  // Compute hours correctly using floor division
+  if (total_minutes >= 0) {
+      zone_out->offset.hours = total_minutes / 60;
+      zone_out->offset.minutes = total_minutes % 60;
+  } else {
+      zone_out->offset.hours = (total_minutes - 59) / 60;   // floor division
+      zone_out->offset.minutes = total_minutes - (zone_out->offset.hours * 60);
+  }
+
   zone_out->rules = &(zone_rules[zone_in->rules_idx]);
   zone_out->rules_len = zone_in->rules_len;
 
