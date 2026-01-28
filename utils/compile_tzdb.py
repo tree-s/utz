@@ -13,7 +13,14 @@ def download_tzdata(dest_dir: str):
     archive_path = os.path.join(dest_dir, "tzdata-latest.tar.gz")
 
     print("Downloading latest tzdata...")
-    urllib.request.urlretrieve(TZDATA_URL, archive_path)
+
+    req = urllib.request.Request(
+        TZDATA_URL,
+        headers={"User-Agent": "Mozilla/5.0"}
+    )
+
+    with urllib.request.urlopen(req) as resp, open(archive_path, "wb") as f:
+        f.write(resp.read())
 
     print("Extracting tzdata...")
     with tarfile.open(archive_path, "r:gz") as tar:
@@ -28,7 +35,9 @@ def download_tzdata(dest_dir: str):
 if __name__ == "__main__":
     import argparse
 
-    parser = argparse.ArgumentParser(description="Download and extract latest IANA tzdata")
+    parser = argparse.ArgumentParser(
+        description="Download and extract latest IANA tzdata"
+    )
     parser.add_argument(
         "output_dir",
         nargs="?",
