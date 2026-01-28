@@ -1,91 +1,112 @@
 import re
 
-# Fixed length of zone names (for display or truncation)
 NAME_LEN = 6
-
-# Allowed characters (from your Custom_LCD_Character_Set)
 ALLOWED_CHARS = (
     " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     "[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~ "
 )
 
-# Regex to match the zone_names array
 ZONE_ARRAY_RE = re.compile(
     r'const unsigned char zone_names\[\d+\]\s*=\s*\{(.*?)\};',
     re.S
 )
 
+# Regex to match #define UTZ_* lines
+UTZ_DEFINE_RE = re.compile(r"#define\s+(UTZ_[A-Z0-9_]+)\s+(\d+)")
 
 def sanitize_char(c):
-    """Return the character if allowed and not a literal backslash, else space"""
     if c == '\\':
         return ' '
     return c if c in ALLOWED_CHARS else ' '
 
-
-def rewrite_zone_names(zones_c_path):
-    with open(zones_c_path, "r", encoding="utf-8") as f:
+def rewrite_zones(c_path, h_path):
+    # --- Process zones.c ---
+    with open(c_path, "r", encoding="utf-8") as f:
         text = f.read()
 
     match = ZONE_ARRAY_RE.search(text)
     if not match:
-        raise RuntimeError("zone_names array not found")
+        raise RuntimeError("zone_names array not found in zones.c")
 
-    # Extract array body
     body = match.group(1)
-    # Match either char literals or integer bytes
     tokens = re.findall(r"'(.)'|(\d+)", body)
 
     entries = []
+    seen_idxs = set()
     i = 0
     while i < len(tokens):
-        # Read characters until we hit the NUL (0)
         name_chars = []
         while i < len(tokens) and tokens[i][1] == '':
             name_chars.append(tokens[i][0])
             i += 1
-
-        # Skip the 0 (NUL terminator)
         if i < len(tokens) and tokens[i][1] == '0':
             i += 1
         else:
             raise RuntimeError("Expected NUL byte after zone name")
 
-        # Read index byte
         if i < len(tokens) and tokens[i][1] != '':
             idx = int(tokens[i][1])
             i += 1
         else:
             raise RuntimeError("Expected index byte after NUL")
 
-        # Sanitize characters
+        if idx in seen_idxs:
+            continue
+        seen_idxs.add(idx)
+
         sanitized = [sanitize_char(c) for c in name_chars]
-        # Pad or truncate
         padded = sanitized[:NAME_LEN] + [' '] * (NAME_LEN - len(sanitized))
         entries.append((padded, idx))
 
-    # Build new array
+    # Rebuild zone_names array
     new_lines = []
     out_bytes = bytearray()
     for zone_index, (name, idx) in enumerate(entries):
         chars = ",".join(f"'{c}'" for c in name)
         new_lines.append(f"    {chars},'\\0',{idx}, // zone {zone_index}")
-        out_bytes.extend([ord(c) for c in name])
-        out_bytes.append(0)  # NUL terminator
+        out_bytes.extend(ord(c) for c in name)
+        out_bytes.append(0)
         out_bytes.append(idx)
 
     new_array = f"const unsigned char zone_names[{len(out_bytes)}] = {{\n"
     new_array += "\n".join(new_lines)
     new_array += "\n};"
 
-    # Replace the old array in zones.c
     new_text = text[:match.start()] + new_array + text[match.end():]
 
-    with open(zones_c_path, "w", encoding="utf-8") as f:
+    with open(c_path, "w", encoding="utf-8") as f:
         f.write(new_text)
+    print(f"Updated {c_path} — {len(entries)} unique zones, {len(out_bytes)} bytes")
 
-    print(f"Updated zone_names[] — new size: {len(out_bytes)} bytes")
+    # --- Update zones.h ---
+    with open(h_path, "r", encoding="utf-8") as f:
+        h_text = f.read()
 
+    # Update NUM_ZONE_NAMES
+    h_text = re.sub(
+        r"#define NUM_ZONE_NAMES \d+",
+        f"#define NUM_ZONE_NAMES {len(entries)}",
+        h_text
+    )
+
+    # Update zone_names array size
+    h_text = re.sub(
+        r"extern const unsigned char zone_names\[\d+\]",
+        f"extern const unsigned char zone_names[{len(out_bytes)}]",
+        h_text
+    )
+
+    # Update UTZ_* defines — only keep idx that are in seen_idxs
+    def repl_define(m):
+        name, idx = m.groups()
+        idx = int(idx)
+        return f"#define {name} {idx}" if idx in seen_idxs else f"/* {name} {idx} removed */"
+
+    h_text = UTZ_DEFINE_RE.sub(repl_define, h_text)
+
+    with open(h_path, "w", encoding="utf-8") as f:
+        f.write(h_text)
+    print(f"Updated {h_path}")
 
 if __name__ == "__main__":
-    rewrite_zone_names("zones.c")
+    rewrite_zones("zones.c", "zones.h")
