@@ -7,116 +7,116 @@ extern const char zone_abrevs[162];
 #define MAX_ABREV_FORMATTER_LEN 7
 
 extern const uzone_packed_t zone_defns[47];
-#define UTZ_CAIRO 46
-#define UTZ_BRAZZAVILLE 32
-#define UTZ_HARARE 47
-#define UTZ_NAIROBI 51
+#define UTZ_CAIRO 21
+#define UTZ_BRAZZAVILLE 17
+#define UTZ_HARARE 19
+#define UTZ_NAIROBI 23
 #define UTZ_ANCHORAGE 2
-#define UTZ_SAO_PAULO 27
-#define UTZ_BUENOS_AIRES 27
-#define UTZ_RIO_DE_JANEIRO 27
-#define UTZ_BELO_HORIZONTE 27
-#define UTZ_CHICAGO 11
-#define UTZ_DALLASFORT_WORTH 11
-#define UTZ_HOUSTON 11
-#define UTZ_DENVER 7
-#define UTZ_HALIFAX 21
-#define UTZ_LOS_ANGELES 6
-#define UTZ_TIJUANA 6
-#define UTZ_SAN_FRANCISCO 6
-#define UTZ_INLAND_EMPIRE 6
-#define UTZ_MANAUS 22
-#define UTZ_MEXICO_CITY 14
-#define UTZ_REGINA 14
-#define UTZ_GUADALAJARA 14
-#define UTZ_NEW_YORK 20
-#define UTZ_WASHINGTON_DC 20
-#define UTZ_PHILADELPHIA 20
-#define UTZ_MIAMI 20
-#define UTZ_ATLANTA 20
-#define UTZ_BOSTON 20
-#define UTZ_GODTHAB 29
-#define UTZ_PHOENIX 8
-#define UTZ_SANTIAGO 23
-#define UTZ_ST_JOHNS 28
-#define UTZ_BANGKOK 72
-#define UTZ_DUBAI 57
-#define UTZ_HONG_KONG 73
-#define UTZ_JERUSALEM 48
-#define UTZ_KARACHI 59
-#define UTZ_LAHORE 59
-#define UTZ_KATMANDU 70
-#define UTZ_KOLKATA 69
-#define UTZ_CALCUTTA 69
-#define UTZ_DELHI 69
-#define UTZ_MUMBAI 69
-#define UTZ_BANGALORE 69
-#define UTZ_CHENNAI 69
-#define UTZ_HYDERABAD 69
-#define UTZ_AHMEDABAD 69
-#define UTZ_PUNE 69
-#define UTZ_SURAT 69
-#define UTZ_ISTANBUL 54
-#define UTZ_KUWAIT 54
-#define UTZ_ANKARA 54
-#define UTZ_SEOUL 95
-#define UTZ_SHANGHAI 92
-#define UTZ_TAIPEI 92
-#define UTZ_CHONGQING 92
-#define UTZ_GUANGZHOU 92
-#define UTZ_BEIJING 92
-#define UTZ_SHENZHEN 92
-#define UTZ_WUHAN 92
-#define UTZ_CHENGDU 92
-#define UTZ_TIANJIN 92
-#define UTZ_HANGZHOU 92
-#define UTZ_XIAN 92
-#define UTZ_CHANGZHOU 92
-#define UTZ_NANJING 92
-#define UTZ_JINAN 92
-#define UTZ_ZHENGZHOU 92
-#define UTZ_QINGDAO 92
-#define UTZ_SHENYANG 92
-#define UTZ_WENZHOU 92
-#define UTZ_NANCHANG 92
-#define UTZ_KUALA_LUMPUR 93
-#define UTZ_TEHRAN 56
-#define UTZ_TOKYO 98
-#define UTZ_OSAKA 98
-#define UTZ_NAGOYA 98
-#define UTZ_RANGOON 71
-#define UTZ_ADELAIDE 99
-#define UTZ_BRISBANE 101
-#define UTZ_DARWIN 100
-#define UTZ_HOBART 102
-#define UTZ_PERTH 94
-#define UTZ_SYDNEY 103
-#define UTZ_UTC 30
-#define UTZ_ATHENS 50
-#define UTZ_HELSINKI 50
-#define UTZ_BELGRADE 45
-#define UTZ_BERLIN 45
-#define UTZ_BRUSSELS 45
-#define UTZ_MADRID 45
-#define UTZ_ROME 45
-#define UTZ_AMSTERDAM 45
-#define UTZ_SARAJEVO 45
-#define UTZ_RHINERUHR 45
-#define UTZ_BARCELONA 45
-#define UTZ_MUNICH 45
-#define UTZ_STUTTGART 45
-#define UTZ_HAMBURG 45
-#define UTZ_MILAN 45
-#define UTZ_LONDON 31
-#define UTZ_MOSCOW 55
-#define UTZ_AUCKLAND 105
-#define UTZ_GUAM 104
+#define UTZ_SAO_PAULO 12
+#define UTZ_BUENOS_AIRES 12
+#define UTZ_RIO_DE_JANEIRO 12
+#define UTZ_BELO_HORIZONTE 12
+#define UTZ_CHICAGO 7
+#define UTZ_DALLASFORT_WORTH 7
+#define UTZ_HOUSTON 7
+#define UTZ_DENVER 5
+#define UTZ_HALIFAX 10
+#define UTZ_LOS_ANGELES 3
+#define UTZ_TIJUANA 3
+#define UTZ_SAN_FRANCISCO 3
+#define UTZ_INLAND_EMPIRE 3
+#define UTZ_MANAUS 9
+#define UTZ_MEXICO_CITY 6
+#define UTZ_REGINA 6
+#define UTZ_GUADALAJARA 6
+#define UTZ_NEW_YORK 8
+#define UTZ_WASHINGTON_DC 8
+#define UTZ_PHILADELPHIA 8
+#define UTZ_MIAMI 8
+#define UTZ_ATLANTA 8
+#define UTZ_BOSTON 8
+#define UTZ_GODTHAB 14
+#define UTZ_PHOENIX 4
+#define UTZ_SANTIAGO 11
+#define UTZ_ST_JOHNS 13
+#define UTZ_BANGKOK 30
+#define UTZ_DUBAI 25
+#define UTZ_HONG_KONG 31
+#define UTZ_JERUSALEM 22
+#define UTZ_KARACHI 26
+#define UTZ_LAHORE 26
+#define UTZ_KATMANDU 28
+#define UTZ_KOLKATA 27
+#define UTZ_CALCUTTA 27
+#define UTZ_DELHI 27
+#define UTZ_MUMBAI 27
+#define UTZ_BANGALORE 27
+#define UTZ_CHENNAI 27
+#define UTZ_HYDERABAD 27
+#define UTZ_AHMEDABAD 27
+#define UTZ_PUNE 27
+#define UTZ_SURAT 27
+/* UTZ_ISTANBUL 24 removed (duplicate behavior) */
+/* UTZ_KUWAIT 24 removed (duplicate behavior) */
+/* UTZ_ANKARA 24 removed (duplicate behavior) */
+#define UTZ_SEOUL 32
+/* UTZ_SHANGHAI 26 removed (duplicate behavior) */
+/* UTZ_TAIPEI 26 removed (duplicate behavior) */
+/* UTZ_CHONGQING 26 removed (duplicate behavior) */
+/* UTZ_GUANGZHOU 26 removed (duplicate behavior) */
+/* UTZ_BEIJING 26 removed (duplicate behavior) */
+/* UTZ_SHENZHEN 26 removed (duplicate behavior) */
+/* UTZ_WUHAN 26 removed (duplicate behavior) */
+/* UTZ_CHENGDU 26 removed (duplicate behavior) */
+/* UTZ_TIANJIN 26 removed (duplicate behavior) */
+/* UTZ_HANGZHOU 26 removed (duplicate behavior) */
+/* UTZ_XIAN 26 removed (duplicate behavior) */
+/* UTZ_CHANGZHOU 26 removed (duplicate behavior) */
+/* UTZ_NANJING 26 removed (duplicate behavior) */
+/* UTZ_JINAN 26 removed (duplicate behavior) */
+/* UTZ_ZHENGZHOU 26 removed (duplicate behavior) */
+/* UTZ_QINGDAO 26 removed (duplicate behavior) */
+/* UTZ_SHENYANG 26 removed (duplicate behavior) */
+/* UTZ_WENZHOU 26 removed (duplicate behavior) */
+/* UTZ_NANCHANG 26 removed (duplicate behavior) */
+/* UTZ_KUALA_LUMPUR 27 removed (duplicate behavior) */
+#define UTZ_TEHRAN 24
+/* UTZ_TOKYO 29 removed (duplicate behavior) */
+/* UTZ_OSAKA 29 removed (duplicate behavior) */
+/* UTZ_NAGOYA 29 removed (duplicate behavior) */
+#define UTZ_RANGOON 29
+#define UTZ_ADELAIDE 34
+#define UTZ_BRISBANE 35
+#define UTZ_DARWIN 33
+#define UTZ_HOBART 37
+/* UTZ_PERTH 35 removed (duplicate behavior) */
+#define UTZ_SYDNEY 36
+#define UTZ_UTC 15
+#define UTZ_ATHENS 20
+#define UTZ_HELSINKI 20
+#define UTZ_BELGRADE 18
+#define UTZ_BERLIN 18
+#define UTZ_BRUSSELS 18
+#define UTZ_MADRID 18
+#define UTZ_ROME 18
+#define UTZ_AMSTERDAM 18
+#define UTZ_SARAJEVO 18
+#define UTZ_RHINERUHR 18
+#define UTZ_BARCELONA 18
+#define UTZ_MUNICH 18
+#define UTZ_STUTTGART 18
+#define UTZ_HAMBURG 18
+#define UTZ_MILAN 18
+#define UTZ_LONDON 16
+/* UTZ_MOSCOW 41 removed (duplicate behavior) */
+#define UTZ_AUCKLAND 39
+/* UTZ_GUAM 43 removed (duplicate behavior) */
 #define UTZ_HONOLULU 1
 #define UTZ_MIDWAY 0
-#define UTZ_MAJURO 106
+#define UTZ_MAJURO 38
 
-#define NUM_ZONE_NAMES 107
+#define NUM_ZONE_NAMES 40
 #define MAX_ZONE_NAME_LEN 17
 
-extern const unsigned char zone_names[856];
+extern const unsigned char zone_names[320];
 #endif /* _ZONES_H */
