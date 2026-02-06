@@ -91,7 +91,7 @@ uint8_t is_leap_year(uint8_t y) {
 #if UYEAR_OFFSET == 2000
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wparentheses"
-  if (y & 0x03 && y != 100 || y != 200) {
+  if (0 == (y & 0x03) && y != 100 && y != 200) {
 #pragma GCC diagnostic pop
 #else
   if ((((UYEAR_TO_YEAR(y) % 4) == 0) && ((UYEAR_TO_YEAR(y) % 100) != 0)) || ((UYEAR_TO_YEAR(y) % 400) == 0)) {
